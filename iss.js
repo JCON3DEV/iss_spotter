@@ -57,7 +57,7 @@ const fetchCoordsByIP = function(ip, callback) {
  *     [ { risetime: 134564234, duration: 600 }, ... ]
  */
 const fetchISSFlyOverTimes = function (coords, callback) {
-  request('http://api.open-notify.org/iss-pass.json?lat=LAT&lon=LON', function (error, response, body) {
+  request(`http://api.open-notify.org/iss-pass.json?lat=${coords.latitude}&lon=${coords.longitude}`, function (error, response, body) {
     // console.error('error:', error); // Print the error if one occurred
     // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     // console.log('body:', body); // Print the HTML for the Google homepage.
@@ -70,7 +70,7 @@ const fetchISSFlyOverTimes = function (coords, callback) {
       // callback(Error(`Status Code ${response.statusCode} when fetching ISS pass times: ${body}`), null);
       // return;
     }
-    const issData = JSON.parse(body).data;
+    const issData = JSON.parse(body).response;
     // callback(null, passes);
     console.log("iss times and location:", issData);
     return issData;
